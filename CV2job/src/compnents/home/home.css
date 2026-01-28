@@ -54,6 +54,163 @@
     color: var(--primary-green);
 }
 
+/* Role Cards Section */
+.roles-section {
+    padding-top: 2rem;
+}
+
+.roles-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    font-size: 1.1rem;
+}
+
+.roles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.role-card {
+    background: linear-gradient(145deg, rgba(20, 20, 20, 1) 0%, rgba(15, 15, 15, 1) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 1.75rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.role-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-green), #22c55e);
+}
+
+.role-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-green);
+    box-shadow: 0 20px 40px rgba(74, 222, 128, 0.1);
+}
+
+.role-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.role-rank {
+    background: rgba(74, 222, 128, 0.15);
+    color: var(--primary-green);
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.role-match {
+    background: rgba(74, 222, 128, 0.1);
+    color: var(--primary-green);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.role-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.role-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.role-skill-tag {
+    background: #1a1a1a;
+    color: #a0a0a0;
+    padding: 0.35rem 0.7rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.find-jobs-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--primary-green) 0%, #22c55e 100%);
+    color: black;
+    border: none;
+    padding: 0.9rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.find-jobs-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 20px rgba(74, 222, 128, 0.3);
+}
+
+/* Analysis Summary */
+.analysis-summary {
+    background: rgba(10, 10, 10, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.summary-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.summary-item.summary-text {
+    flex: 1;
+    min-width: 300px;
+}
+
+.summary-label {
+    color: var(--primary-green);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.summary-value {
+    color: white;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.summary-text .summary-value {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
 /* Hero Section */
 .hero {
     flex: 1;

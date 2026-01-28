@@ -1,7 +1,25 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import './home.css';
+import DragDropModal from '../drag_drop_modal/DragDropModal';
 
 const Home = () => {
+    const [isUploadOpen, setIsUploadOpen] = useState(false);
+    const [analysisResult, setAnalysisResult] = useState(null);
+    const rolesRef = useRef(null);
+
+    const handleAnalysisComplete = (analysis) => {
+        setAnalysisResult(analysis);
+        // Scroll to roles section
+        setTimeout(() => {
+            rolesRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+    };
+
+    const handleFindJobs = (roleTitle) => {
+        // For now, just alert - later integrate with job search
+        alert(`Searching jobs for: ${roleTitle}`);
+    };
+
     return (
         <div className="home-container">
             <header className="header">
@@ -19,10 +37,53 @@ const Home = () => {
                     Stop searching, start applying.
                 </p>
 
-                <button className="cta-button" onClick={() => alert("Upload feature coming soon!")}>
+                <button className="cta-button" onClick={() => setIsUploadOpen(true)}>
                     Upload Resume
                 </button>
             </section>
+
+            {/* Role Cards Section - Shows after analysis */}
+            {analysisResult && analysisResult.suggestedRoles && (
+                <section className="section roles-section" ref={rolesRef}>
+                    <h2 className="section-title">Your Best <span>Matches</span></h2>
+                    <p className="roles-subtitle">Based on your resume, here are the top 5 roles that match your profile</p>
+
+                    <div className="roles-grid">
+                        {analysisResult.suggestedRoles.map((role, index) => (
+                            <div className="role-card" key={index}>
+                                <div className="role-card-header">
+                                    <span className="role-rank">#{index + 1}</span>
+                                    <span className="role-match">{role.matchScore}% Match</span>
+                                </div>
+                                <h3 className="role-title">{role.title}</h3>
+                                <div className="role-skills">
+                                    {analysisResult.skills?.slice(0, 3).map((skill, i) => (
+                                        <span className="role-skill-tag" key={i}>{skill}</span>
+                                    ))}
+                                </div>
+                                <button
+                                    className="find-jobs-btn"
+                                    onClick={() => handleFindJobs(role.title)}
+                                >
+                                    Find Jobs →
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Experience & Summary Card */}
+                    <div className="analysis-summary">
+                        <div className="summary-item">
+                            <span className="summary-label">Experience Level</span>
+                            <span className="summary-value">{analysisResult.experienceLevel}</span>
+                        </div>
+                        <div className="summary-item summary-text">
+                            <span className="summary-label">Profile Summary</span>
+                            <p className="summary-value">{analysisResult.summary}</p>
+                        </div>
+                    </div>
+                </section>
+            )}
 
             {/* Features Section */}
             <section className="section features">
@@ -58,7 +119,7 @@ const Home = () => {
                     <div className="step-card">
                         <div className="step-number">1</div>
                         <h3>Upload Resume</h3>
-                        <p>Simply drag and drop your PDF or Docx resume. Our secure system instantly prepares it for analysis.</p>
+                        <p>Simply drag and drop your PDF resume. Our secure system instantly prepares it for analysis.</p>
                     </div>
                     <div className="step-card">
                         <div className="step-number">2</div>
@@ -73,93 +134,24 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Example Result Section */}
-            <section className="section examples">
-                <h2 className="section-title">Match <span>Preview</span></h2>
-                <div className="example-container">
-                    <div className="mock-card">
-                        <div className="mock-header">
-                            <div>
-                                <h3 className="job-title">Senior Frontend Engineer</h3>
-                                <span className="company-name">NeuralWeb Systems • Remote</span>
-                            </div>
-                            <div className="match-badge">98% Match</div>
-                        </div>
-
-                        <div className="skills-list">
-                            <span className="skill-tag">React</span>
-                            <span className="skill-tag">TypeScript</span>
-                            <span className="skill-tag">Tailwind</span>
-                            <span className="skill-tag">Node.js</span>
-                        </div>
-
-                        <button className="mock-apply-btn">
-                            Apply on LinkedIn
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            {/* Trust / Value Propostion Section */}
+            {/* Trust Section */}
             <section className="section trust">
-                <h2 className="section-title">Why Choose <span>CV2Job</span>?</h2>
+                <h2 className="section-title">Why Trust <span>CV2Job</span></h2>
                 <div className="trust-grid">
                     <div className="trust-item">
-                        <div className="trust-icon">🎯</div>
-                        <h3>Pinpoint Accuracy</h3>
-                        <p>Our AI doesn't just match keywords; it understands the semantic context of your career history to find roles you'll actually love.</p>
-                    </div>
-                    <div className="trust-item">
                         <div className="trust-icon">🔒</div>
-                        <h3>Privacy Friendly</h3>
-                        <p>Your data is yours. We analyze your resume in real-time and never share your personal information with third parties without consent.</p>
+                        <h3>100% Secure</h3>
+                        <p>Your resume data is encrypted and never stored. We value your privacy above all else.</p>
                     </div>
                     <div className="trust-item">
                         <div className="trust-icon">⚡</div>
-                        <h3>Real-Time Speed</h3>
-                        <p>No waiting days for a callback. Get instant feedback and job links the moment you upload your document.</p>
+                        <h3>Lightning Fast</h3>
+                        <p>Get job matches in seconds, not hours. Our AI works at incredible speed.</p>
                     </div>
                     <div className="trust-item">
-                        <div className="trust-icon">📈</div>
-                        <h3>Career Growth</h3>
-                        <p>Identify skill gaps and get recommendations on how to improve your resume to target higher-paying roles.</p>
-                    </div>
-                </div>
-            </section>
-
-            {/* Customer Reviews Section */}
-            <section className="section reviews">
-                <h2 className="section-title">What Our <span>Users Say</span></h2>
-                <div className="reviews-grid">
-                    <div className="review-card">
-                        <p className="review-text">"I was skeptical about AI resume tools, but CV2Job found me a position I wouldn't have found on my own. The match score was spot on!"</p>
-                        <div className="review-author">
-                            <div className="author-avatar">AM</div>
-                            <div className="author-info">
-                                <h4>Alex Morgan</h4>
-                                <span>Software Engineer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="review-card">
-                        <p className="review-text">"The direct apply links saved me hours of scrolling. I applied to 5 high-quality jobs in 10 minutes and got 2 interviews."</p>
-                        <div className="review-author">
-                            <div className="author-avatar">SK</div>
-                            <div className="author-info">
-                                <h4>Sarah Klein</h4>
-                                <span>Product Manager</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="review-card">
-                        <p className="review-text">"Simple, fast, and effective. It helped me tailor my resume for the specific roles I wanted. Truly a game changer."</p>
-                        <div className="review-author">
-                            <div className="author-avatar">JD</div>
-                            <div className="author-info">
-                                <h4>James Davis</h4>
-                                <span>Data Analyst</span>
-                            </div>
-                        </div>
+                        <div className="trust-icon">🎯</div>
+                        <h3>High Accuracy</h3>
+                        <p>Our matching algorithm has a 95%+ satisfaction rate from users who found their dream job.</p>
                     </div>
                 </div>
             </section>
@@ -168,33 +160,38 @@ const Home = () => {
             <footer className="footer">
                 <div className="footer-content">
                     <div className="footer-column">
-                        <h3>About CV2Job</h3>
-                        <p>CV2Job is an AI-powered platform designed to bridge the gap between talent and opportunity. We use cutting-edge technology to help you land your dream job faster.</p>
+                        <h3>CV2Job</h3>
+                        <p>AI-powered job matching that understands your potential. Built for job seekers who want to succeed.</p>
                     </div>
                     <div className="footer-column">
                         <h3>Quick Links</h3>
                         <ul className="footer-links">
-                            <li><a href="#">Upload Resume</a></li>
+                            <li><a href="#">Home</a></li>
                             <li><a href="#">Features</a></li>
-                            <li><a href="#">Pricing</a></li>
-                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">How It Works</a></li>
+                            <li><a href="#">Contact</a></li>
                         </ul>
                     </div>
                     <div className="footer-column">
-                        <h3>Legal & Contact</h3>
+                        <h3>Legal</h3>
                         <ul className="footer-links">
                             <li><a href="#">Privacy Policy</a></li>
                             <li><a href="#">Terms of Service</a></li>
-                            <li><a href="#">Contact Support</a></li>
-                            <li><a href="#">support@cv2job.com</a></li>
                         </ul>
                     </div>
                 </div>
                 <div className="footer-bottom">
-                    &copy; 2026 CV2Job. All rights reserved. Made with ❤️ for Job Seekers.
+                    <p>© 2024 CV2Job. All rights reserved.</p>
                 </div>
             </footer>
 
+            {/* Upload Modal */}
+            {isUploadOpen && (
+                <DragDropModal
+                    onClose={() => setIsUploadOpen(false)}
+                    onAnalysisComplete={handleAnalysisComplete}
+                />
+            )}
         </div>
     );
 };

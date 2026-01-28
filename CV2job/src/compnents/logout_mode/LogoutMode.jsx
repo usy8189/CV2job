@@ -65,7 +65,10 @@ const LogoutMode = () => {
         e.preventDefault();
 
         // Check Hardcoded
-        if (username === 'UJJWAL_8189' && password === 'UJJWAL_8189') {
+        if (
+            (username === 'UJJWAL_8189' && password === 'UJJWAL_8189') ||
+            (username === 'Himanshu' && password === 'Himanshu')
+        ) {
             navigate('/home');
             return;
         }
