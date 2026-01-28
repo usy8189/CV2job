@@ -20,6 +20,10 @@ const LogoutMode = () => {
     const [signupEmail, setSignupEmail] = useState('');
     const [signupPassword, setSignupPassword] = useState('');
 
+    // Legal Modal State
+    const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+    const [showTermsModal, setShowTermsModal] = useState(false);
+
     // Handlers
     const handleLoginClick = () => {
         setIsLoginOpen(true);
@@ -64,20 +68,33 @@ const LogoutMode = () => {
     const handleLoginSubmit = (e) => {
         e.preventDefault();
 
-        // Check Hardcoded
-        if (
-            (username === 'UJJWAL_8189' && password === 'UJJWAL_8189') ||
-            (username === 'Himanshu' && password === 'Himanshu')
-        ) {
+        // Check Hardcoded users
+        if (username === 'UJJWAL_8189' && password === 'UJJWAL_8189') {
+            localStorage.setItem('currentUser', JSON.stringify({
+                username: 'UJJWAL_8189',
+                email: 'ujjwal@cv2job.com'
+            }));
+            navigate('/home');
+            return;
+        }
+        if (username === 'Himanshu' && password === 'Himanshu') {
+            localStorage.setItem('currentUser', JSON.stringify({
+                username: 'Himanshu',
+                email: 'himanshu@cv2job.com'
+            }));
             navigate('/home');
             return;
         }
 
-        // Check LocalStorage
+        // Check LocalStorage users
         const storedUserJson = localStorage.getItem(`user_${username}`);
         if (storedUserJson) {
             const storedUser = JSON.parse(storedUserJson);
             if (storedUser.password === password) {
+                localStorage.setItem('currentUser', JSON.stringify({
+                    username: storedUser.username,
+                    email: storedUser.email
+                }));
                 navigate('/home');
                 return;
             }
@@ -340,31 +357,103 @@ const LogoutMode = () => {
                 <div className="footer-content">
                     <div className="footer-column">
                         <h3>About CV2Job</h3>
-                        <p>CV2Job is an AI-powered platform designed to bridge the gap between talent and opportunity. We use cutting-edge technology to help you land your dream job faster.</p>
+                        <p>CV2Job is an AI-powered platform designed to bridge the gap between talent and opportunity. Your dream job is just one upload away.</p>
                     </div>
+
                     <div className="footer-column">
-                        <h3>Quick Links</h3>
+                        <h3>Developers</h3>
+                        <div className="developer-card">
+                            <div className="developer-avatar">H</div>
+                            <div className="developer-info">
+                                <span className="developer-name">Himanshu</span>
+                                <div className="developer-links">
+                                    <a href="https://www.linkedin.com/in/himanxhu" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                                    <a href="https://github.com/Dexter-2005" target="_blank" rel="noopener noreferrer">GitHub</a>
+                                    <a href="https://www.instagram.com/himanxhu_chaudhary" target="_blank" rel="noopener noreferrer">Instagram</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="developer-card">
+                            <div className="developer-avatar">U</div>
+                            <div className="developer-info">
+                                <span className="developer-name">Ujjwal</span>
+                                <div className="developer-links">
+                                    <a href="https://www.linkedin.com/in/ujjwalsinghyadav" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                                    <a href="https://github.com/usy8189" target="_blank" rel="noopener noreferrer">GitHub</a>
+                                    <a href="https://www.instagram.com/ujjwal_8189" target="_blank" rel="noopener noreferrer">Instagram</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="footer-column">
+                        <h3>Legal</h3>
                         <ul className="footer-links">
-                            <li><button onClick={handleLoginClick} style={{ background: 'none', border: 'none', padding: 0, color: 'inherit', font: 'inherit', cursor: 'pointer', textDecoration: 'none' }}>Get Started</button></li>
-                            <li><a href="#">Features</a></li>
-                            <li><a href="#">Pricing</a></li>
-                            <li><a href="#">Blog</a></li>
+                            <li><button className="legal-link" onClick={() => setShowPrivacyModal(true)}>Privacy Policy</button></li>
+                            <li><button className="legal-link" onClick={() => setShowTermsModal(true)}>Terms of Service</button></li>
                         </ul>
                     </div>
+
                     <div className="footer-column">
-                        <h3>Legal & Contact</h3>
+                        <h3>Contact Support</h3>
                         <ul className="footer-links">
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms of Service</a></li>
-                            <li><a href="#">Contact Support</a></li>
-                            <li><a href="#">support@cv2job.com</a></li>
+                            <li>📧 24uec253@lnmiit.ac.in</li>
+                            <li>📧 24uec250@lnmiit.ac.in</li>
                         </ul>
                     </div>
                 </div>
                 <div className="footer-bottom">
-                    &copy; 2026 CV2Job. All rights reserved. Made with ❤️ for Job Seekers.
+                    &copy; 2026 CV2Job. All rights reserved. Made with ❤️ by Himanshu & Ujjwal
                 </div>
             </footer>
+
+            {/* Privacy Policy Modal */}
+            {showPrivacyModal && (
+                <div className="legal-modal-overlay" onClick={() => setShowPrivacyModal(false)}>
+                    <div className="legal-modal" onClick={(e) => e.stopPropagation()}>
+                        <button className="modal-close" onClick={() => setShowPrivacyModal(false)}>&times;</button>
+                        <h2 className="legal-modal-title">Privacy <span>Policy</span></h2>
+                        <div className="legal-modal-content">
+                            <p><strong>Last Updated:</strong> January 2026</p>
+                            <h3>1. Information We Collect</h3>
+                            <p>We collect information you provide directly, including your resume content for analysis purposes. We do not store your resume permanently.</p>
+                            <h3>2. How We Use Your Information</h3>
+                            <p>Your resume data is processed in real-time by our AI system to provide job recommendations. We do not sell or share your personal information with third parties.</p>
+                            <h3>3. Data Security</h3>
+                            <p>We implement industry-standard security measures to protect your information. Resume data is encrypted during transmission and is not stored after analysis.</p>
+                            <h3>4. Your Rights</h3>
+                            <p>You have the right to access, correct, or delete your personal information. Contact us at the provided email addresses for any privacy concerns.</p>
+                            <h3>5. Contact Us</h3>
+                            <p>For privacy-related inquiries, email us at 24uec253@lnmiit.ac.in or 24uec250@lnmiit.ac.in</p>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Terms of Service Modal */}
+            {showTermsModal && (
+                <div className="legal-modal-overlay" onClick={() => setShowTermsModal(false)}>
+                    <div className="legal-modal" onClick={(e) => e.stopPropagation()}>
+                        <button className="modal-close" onClick={() => setShowTermsModal(false)}>&times;</button>
+                        <h2 className="legal-modal-title">Terms of <span>Service</span></h2>
+                        <div className="legal-modal-content">
+                            <p><strong>Last Updated:</strong> January 2026</p>
+                            <h3>1. Acceptance of Terms</h3>
+                            <p>By accessing and using CV2Job, you accept and agree to be bound by these Terms of Service.</p>
+                            <h3>2. Use of Service</h3>
+                            <p>CV2Job provides AI-powered resume analysis and job matching services. You agree to use this service for lawful purposes only.</p>
+                            <h3>3. User Responsibilities</h3>
+                            <p>You are responsible for the accuracy of the information you provide. Do not upload resumes containing false or misleading information.</p>
+                            <h3>4. Intellectual Property</h3>
+                            <p>All content, features, and functionality of CV2Job are owned by the developers and are protected by intellectual property laws.</p>
+                            <h3>5. Limitation of Liability</h3>
+                            <p>CV2Job is provided "as is" without warranties. We are not responsible for job application outcomes or third-party website content.</p>
+                            <h3>6. Changes to Terms</h3>
+                            <p>We reserve the right to modify these terms at any time. Continued use constitutes acceptance of updated terms.</p>
+                        </div>
+                    </div>
+                </div>
+            )}
 
         </div>
     );

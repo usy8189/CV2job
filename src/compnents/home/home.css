@@ -34,6 +34,160 @@
     color: var(--primary-green);
 }
 
+/* Profile Section */
+.profile-wrapper {
+    position: relative;
+}
+
+.profile-button {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    padding: 0.5rem 1rem 0.5rem 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.profile-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(74, 222, 128, 0.3);
+}
+
+.profile-avatar {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--primary-green), #22c55e);
+    color: black;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.profile-greeting {
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.profile-arrow {
+    color: #888;
+    font-size: 0.7rem;
+}
+
+/* Profile Dropdown */
+.profile-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 280px;
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+}
+
+.profile-avatar-large {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--primary-green), #22c55e);
+    color: black;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.profile-info h3 {
+    color: white;
+    font-size: 1.1rem;
+    margin: 0 0 0.25rem 0;
+}
+
+.profile-info p {
+    color: #888;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.profile-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    margin: 0 1rem;
+}
+
+.profile-menu {
+    list-style: none;
+    padding: 0.75rem 0;
+    margin: 0;
+}
+
+.profile-menu li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    color: #ccc;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.profile-menu li:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+.profile-menu-icon {
+    font-size: 1.1rem;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 1rem 1.25rem;
+    background: none;
+    border: none;
+    color: #ef4444;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+}
+
 /* Section Common Styles */
 .section {
     padding: 5rem 0;
@@ -210,6 +364,155 @@
     color: var(--text-secondary);
     font-size: 1rem;
 }
+
+/* Selected role card */
+.role-card.selected {
+    border-color: var(--primary-green);
+    box-shadow: 0 0 30px rgba(74, 222, 128, 0.2);
+}
+
+/* Loading spinner */
+.spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top-color: black;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.find-jobs-btn.loading {
+    opacity: 0.8;
+    cursor: not-allowed;
+}
+
+/* Jobs Section */
+.jobs-section {
+    padding-top: 3rem;
+}
+
+.jobs-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    font-size: 1.1rem;
+}
+
+.jobs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1.5rem;
+}
+
+.job-card {
+    background: linear-gradient(145deg, #141414 0%, #0a0a0a 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.75rem;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.job-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(74, 222, 128, 0.3);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.job-card-header {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.job-company-logo {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--primary-green), #22c55e);
+    color: black;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+.job-header-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.job-card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.25rem;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.job-company {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.job-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.job-detail {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: #a0a0a0;
+    font-size: 0.85rem;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+}
+
+.job-detail-icon {
+    font-size: 0.9rem;
+}
+
+.apply-btn {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.9rem 1.5rem;
+    background: #0077b5;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.apply-btn:hover {
+    background: #005e93;
+    transform: scale(1.02);
+    box-shadow: 0 5px 20px rgba(0, 119, 181, 0.3);
+}
+
 
 /* Hero Section */
 .hero {
@@ -603,6 +906,63 @@
     color: var(--primary-green);
 }
 
+/* Developer Cards in Footer */
+.developer-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.developer-avatar {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, var(--primary-green), #22c55e);
+    color: black;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.developer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.developer-name {
+    display: block;
+    color: white;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+}
+
+.developer-links {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.developer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+}
+
+.developer-links a:hover {
+    color: var(--primary-green);
+}
+
+.footer-links li {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
 .footer-bottom {
     text-align: center;
     padding-top: 2rem;
@@ -754,4 +1114,161 @@
     color: #ef4444;
     margin-top: 1rem;
     font-size: 0.9rem;
+}
+
+/* Legal Link Buttons */
+.legal-link {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: inherit;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.legal-link:hover {
+    color: var(--primary-green);
+}
+
+/* Legal Modal */
+.legal-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 2rem;
+    animation: fadeIn 0.2s ease;
+}
+
+.legal-modal {
+    background: linear-gradient(145deg, #141414 0%, #0a0a0a 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 2.5rem;
+    position: relative;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.legal-modal-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1.5rem;
+}
+
+.legal-modal-title span {
+    color: var(--primary-green);
+}
+
+.legal-modal-content {
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.legal-modal-content h3 {
+    color: white;
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.legal-modal-content p {
+    margin-bottom: 1rem;
+}
+
+.legal-modal-content strong {
+    color: var(--primary-green);
+}
+
+/* Scrollbar for legal modal */
+.legal-modal::-webkit-scrollbar {
+    width: 6px;
+}
+
+.legal-modal::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.legal-modal::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.legal-modal::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Coming Soon Modal */
+.coming-soon-modal {
+    background: linear-gradient(145deg, #141414 0%, #0a0a0a 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    max-width: 350px;
+    animation: slideUp 0.3s ease;
+}
+
+.coming-soon-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.coming-soon-modal h2 {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.coming-soon-modal h2 span {
+    color: var(--primary-green);
+}
+
+.coming-soon-modal p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.coming-soon-btn {
+    background: var(--primary-green);
+    color: black;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.coming-soon-btn:hover {
+    background: var(--primary-green-hover);
+    transform: translateY(-2px);
 }

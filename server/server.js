@@ -99,15 +99,47 @@ ${text.substring(0, 8000)}`
 app.post('/api/search-jobs', async (req, res) => {
     try {
         const { jobTitle, location } = req.body;
-        console.log(`🔍 "${jobTitle}" in "${location || 'Remote'}"`);
+        // Default to India if no location specified
+        const searchLocation = location || 'India';
+        console.log(`🔍 "${jobTitle}" in "${searchLocation}"`);
 
         const response = await axios.get('https://jsearch.p.rapidapi.com/search', {
-            params: { query: `${jobTitle} ${location || 'Remote'}`, page: '1', num_pages: '1' },
+            params: {
+                query: `${jobTitle} in ${searchLocation}`,
+                page: '1',
+                num_pages: '1',
+                country: 'in' // Prefer India results
+            },
             headers: {
                 'x-rapidapi-key': process.env.RAPIDAPI_KEY,
                 'x-rapidapi-host': 'jsearch.p.rapidapi.com'
             }
         });
+
+        // Helper function to extract source from URL
+        const getJobSource = (url) => {
+            if (!url) return 'Apply';
+            try {
+                const hostname = new URL(url).hostname.toLowerCase();
+                if (hostname.includes('linkedin')) return 'LinkedIn';
+                if (hostname.includes('naukri')) return 'Naukri';
+                if (hostname.includes('indeed')) return 'Indeed';
+                if (hostname.includes('glassdoor')) return 'Glassdoor';
+                if (hostname.includes('monster')) return 'Monster';
+                if (hostname.includes('foundit') || hostname.includes('monsterindia')) return 'Foundit';
+                if (hostname.includes('shine')) return 'Shine';
+                if (hostname.includes('instahyre')) return 'Instahyre';
+                if (hostname.includes('angel') || hostname.includes('wellfound')) return 'Wellfound';
+                if (hostname.includes('lever')) return 'Lever';
+                if (hostname.includes('greenhouse')) return 'Greenhouse';
+                if (hostname.includes('workday')) return 'Workday';
+                // Extract domain name as fallback
+                const parts = hostname.replace('www.', '').split('.');
+                return parts[0].charAt(0).toUpperCase() + parts[0].slice(1);
+            } catch {
+                return 'Apply';
+            }
+        };
 
         const jobs = response.data.data.slice(0, 6).map(j => ({
             id: j.job_id,
@@ -115,9 +147,10 @@ app.post('/api/search-jobs', async (req, res) => {
             company: j.employer_name,
             location: j.job_city ? `${j.job_city}, ${j.job_country}` : 'Remote',
             type: j.job_employment_type || 'Full-time',
-            salary: j.job_min_salary ? `$${j.job_min_salary}-$${j.job_max_salary}` : 'Not listed',
+            salary: j.job_min_salary ? `₹${j.job_min_salary}-₹${j.job_max_salary}` : 'Not listed',
             matchScore: '95%',
-            applyLink: j.job_apply_link
+            applyLink: j.job_apply_link,
+            source: getJobSource(j.job_apply_link)
         }));
 
         console.log(`✅ ${jobs.length} jobs`);
