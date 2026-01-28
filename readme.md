@@ -58,8 +58,8 @@ This project was made by **Ujjwal** and **Himanshu**. The development was divide
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/Dexter-2005/CV2JOB.git
-    cd CV2JOB
+    git clone https://github.com/usy8189/CV2job_.git
+    cd CV2job_
     ```
 
 2.  **Install dependencies:**

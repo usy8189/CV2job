@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Home from './compnents/home/home';
-import LogoutMode from './compnents/logout_mode/LogoutMode';
+import Home from './components/home/home';
+import LogoutMode from './components/logout_mode/LogoutMode';
 
 function App() {
   return (
